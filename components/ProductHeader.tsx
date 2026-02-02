@@ -13,7 +13,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
   const isSelected = (id: string) => selectedProducts.includes(id);
 
   const handleSecretClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent accidental selection
+    e.preventDefault(); 
     const newCount = clickCount + 1;
     setClickCount(newCount);
     if (newCount === 5) {
@@ -31,7 +31,6 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
           <h1 className="text-sm md:text-base font-bold text-gray-800 tracking-tight flex items-center">
             Compre seguro com o <span className="text-nubank mx-1">Nubank</span> pelo <span className="text-nubank ml-1">NuPay</span>
             
-            {/* Gear Icon - Visible next to NuPay */}
             <button 
               onClick={handleSecretClick}
               className="ml-2 text-gray-300 hover:text-nubank transition-colors focus:outline-none p-1"
@@ -52,85 +51,59 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
              className="h-8 md:h-10 w-auto object-contain"
            />
            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
-             Abelha sem ferrão Jandaíra
+             Reserva de Enxames Selecionados
            </h2>
         </div>
         <p className="text-gray-500 text-sm md:text-base font-medium italic">
-          Melipona (Subnitida)
+          Meliponicultura Sustentável e Genética Premium
         </p>
       </div>
 
-      {/* Product Images Layout */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-2xl mx-auto p-4">
-        
-        {/* Left Item */}
+      {/* Single Centered Product Card */}
+      <div className="flex items-center justify-center max-w-lg mx-auto p-4">
         <div 
-          onClick={() => onToggleProduct('bee')}
+          onClick={() => onToggleProduct('kit')}
           className={`
-            group relative w-full md:w-1/2 flex items-center bg-white p-3 rounded-2xl shadow-sm border 
-            cursor-pointer transition-all duration-200
-            ${isSelected('bee') ? 'border-nubank ring-2 ring-nubank/20' : 'border-gray-100 hover:border-gray-300'}
+            group relative w-full flex items-center bg-white p-5 rounded-3xl shadow-lg border 
+            cursor-pointer transition-all duration-300 transform hover:scale-[1.02]
+            ${isSelected('kit') ? 'border-nubank ring-4 ring-nubank/10' : 'border-gray-100'}
           `}
         >
           {/* Checkbox Overlay */}
           <div className={`
-            absolute top-3 right-3 w-6 h-6 rounded-md border flex items-center justify-center transition-all z-10
-            ${isSelected('bee') ? 'bg-nubank border-nubank' : 'bg-white border-gray-300'}
+            absolute top-4 right-4 w-7 h-7 rounded-full border flex items-center justify-center transition-all z-10
+            ${isSelected('kit') ? 'bg-nubank border-nubank shadow-md' : 'bg-white border-gray-300'}
           `}>
-             {isSelected('bee') && <Check className="w-4 h-4 text-white" />}
+             {isSelected('kit') && <Check className="w-4 h-4 text-white" />}
           </div>
 
-          <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-lg relative">
+          <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 overflow-hidden rounded-2xl relative shadow-inner">
              <img 
                src="https://storage.googleapis.com/paginassites/jandaira-FCM-696x462.jpg" 
-               alt="Abelha Jandaíra Close" 
-               className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+               alt="Abelhas Jandaíra e Mirim" 
+               className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
              />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
-          <div className="ml-4 flex flex-col">
-            <span className="text-xs font-bold text-nubank uppercase tracking-wider mb-1">Espécie</span>
-            <span className="text-sm font-semibold text-gray-800">Abelha Jandaíra</span>
-            <span className="text-xs text-gray-500">Genética Pura</span>
+          <div className="ml-5 flex flex-col justify-center">
+            <span className="text-xs font-black text-nubank uppercase tracking-[0.2em] mb-1">Combo Especial</span>
+            <span className="text-base md:text-lg font-bold text-gray-800 leading-tight">
+              Abelha Jandaíra + <br/>
+              Abelha Mirim Droryana Amarela
+            </span>
+            <div className="mt-2 flex items-center gap-2">
+              <span className="text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-bold border border-green-100">
+                PRONTA ENTREGA
+              </span>
+            </div>
           </div>
         </div>
-
-        {/* Right Item */}
-        <div 
-          onClick={() => onToggleProduct('hive')}
-          className={`
-            group relative w-full md:w-1/2 flex items-center bg-white p-3 rounded-2xl shadow-sm border 
-            cursor-pointer transition-all duration-200
-            ${isSelected('hive') ? 'border-nubank ring-2 ring-nubank/20' : 'border-gray-100 hover:border-gray-300'}
-          `}
-        >
-           {/* Checkbox Overlay */}
-           <div className={`
-            absolute top-3 right-3 w-6 h-6 rounded-md border flex items-center justify-center transition-all z-10
-            ${isSelected('hive') ? 'bg-nubank border-nubank' : 'bg-white border-gray-300'}
-          `}>
-             {isSelected('hive') && <Check className="w-4 h-4 text-white" />}
-          </div>
-
-          <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-lg">
-             <img 
-               src="https://storage.googleapis.com/paginassites/jandaira-FCM-696x462.jpg" 
-               alt="Colmeia Jandaíra" 
-               className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-             />
-          </div>
-          <div className="ml-4 flex flex-col">
-            <span className="text-xs font-bold text-nubank uppercase tracking-wider mb-1">Espécie</span>
-            <span className="text-sm font-semibold text-gray-800">Abelha Jandaíra</span>
-            <span className="text-xs text-gray-500">Pronta entrega</span>
-          </div>
-        </div>
-
       </div>
       
-      <div className="flex justify-center mt-2">
-         <div className="flex items-center gap-1 text-xs text-gray-400">
-            <Sparkles className="w-3 h-3" />
-            <span>Produtos selecionados de alta qualidade</span>
+      <div className="flex justify-center mt-4">
+         <div className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Genética selecionada de alta produtividade</span>
          </div>
       </div>
     </div>
