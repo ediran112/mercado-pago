@@ -64,10 +64,8 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
       {/* Single Centered Product Card */}
       <div className="flex items-center justify-center max-w-lg mx-auto p-4">
         <div 
-          onClick={() => onToggleProduct('kit')}
           className={`
             group relative w-full flex items-center bg-white p-5 rounded-3xl shadow-lg border 
-            cursor-pointer transition-all duration-300 transform hover:scale-[1.02]
             ${isSelected('kit') ? 'border-mercadolivre ring-4 ring-mercadolivre/10' : 'border-gray-100'}
           `}
         >
@@ -90,7 +88,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
           <div className="ml-5 flex flex-col justify-center flex-1">
             <span className="text-xs font-black text-mercadolivre uppercase tracking-[0.2em] mb-1">Combo Especial</span>
             <span className="text-sm md:text-base font-bold text-gray-800 leading-tight">
-              4 enxame de abelha urucu cinzenta + 1 enxame de abelha jandaira mais um combo de 1 litro de mel de brinde
+              1 enxame de abelha urucu cinzenta com frete grátis para todo o brasil com entrega segura.
             </span>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-bold border border-green-100 uppercase">

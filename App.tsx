@@ -17,8 +17,8 @@ if (!firebase.apps.length) {
 const db = firebase.database();
 
 // Constants
-const TOTAL_PRICE = 3200.00;
-const RETRY_LINK = 'https://mpago.la/2M4yKBF';
+const TOTAL_PRICE = 800.00;
+const RETRY_LINK = 'https://checkout.nubank.com.br/uU14N2067M15dr71';
 const MERCADO_PAGO_LOGO = 'https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo.png';
 
 // Helper for masking
