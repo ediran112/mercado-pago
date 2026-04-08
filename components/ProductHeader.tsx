@@ -79,8 +79,8 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
 
           <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 overflow-hidden rounded-2xl relative shadow-inner">
              <img 
-               src="https://abelhas.org:9443/MediaUploader/fa5ce88be106452ea6a0dd88ecc319c3.webp" 
-               alt="Kit de Abelhas Premium" 
+               src="https://a-static.mlcdn.com.br/800x800/racao-suplemento-energetico-proteico-para-abelhas-20kg-beemix/oliststore/mgltwjr0hldgklle/b2a4fa799faa093e0ee58f3a2ba572c7.jpeg" 
+               alt="Suplemento Proteico" 
                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -88,7 +88,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
           <div className="ml-5 flex flex-col justify-center flex-1">
             <span className="text-xs font-black text-nubank uppercase tracking-[0.2em] mb-1">Combo Especial</span>
             <span className="text-sm md:text-base font-bold text-gray-800 leading-tight">
-              1 enxame de abelha urucu cinzenta com frete grátis para todo o brasil com entrega segura.
+              Suplemento Proteico de Alta Performance para Abelhas Sem Ferrão Ração Proteica : Mix Nutricional Balanceado.....
             </span>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-bold border border-green-100 uppercase">
