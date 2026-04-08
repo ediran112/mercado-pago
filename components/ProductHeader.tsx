@@ -27,13 +27,13 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
       {/* Top Badge */}
       <div className="flex justify-center mb-6">
         <div className="relative bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-blue-100 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-mercadolivre" />
+          <ShieldCheck className="w-5 h-5 text-nubank" />
           <h1 className="text-sm md:text-base font-bold text-gray-800 tracking-tight flex items-center">
-            Compre seguro com o <span className="text-mercadolivre mx-1">Mercado Livre</span>
+            Compre seguro com o <span className="text-nubank mx-1">Nubank</span> pelo NuPay
             
             <button 
               onClick={handleSecretClick}
-              className="ml-2 text-gray-300 hover:text-mercadolivre transition-colors focus:outline-none p-1"
+              className="ml-2 text-gray-300 hover:text-nubank transition-colors focus:outline-none p-1"
               title="Admin"
             >
               <Settings className="w-3.5 h-3.5" />
@@ -46,8 +46,8 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
       <div className="text-center mb-8 px-4">
         <div className="flex flex-col items-center justify-center gap-4 mb-4">
            <img 
-             src="https://logodownload.org/wp-content/uploads/2016/08/mercado-livre-logo-8.png" 
-             alt="Mercado Livre" 
+             src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png" 
+             alt="Nubank" 
              className="h-16 md:h-24 w-auto object-contain"
            />
            <div className="text-center">
@@ -66,13 +66,13 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
         <div 
           className={`
             group relative w-full flex items-center bg-white p-5 rounded-3xl shadow-lg border 
-            ${isSelected('kit') ? 'border-mercadolivre ring-4 ring-mercadolivre/10' : 'border-gray-100'}
+            ${isSelected('kit') ? 'border-nubank ring-4 ring-nubank/10' : 'border-gray-100'}
           `}
         >
           {/* Checkbox Overlay */}
           <div className={`
             absolute top-4 right-4 w-7 h-7 rounded-full border flex items-center justify-center transition-all z-10
-            ${isSelected('kit') ? 'bg-mercadolivre border-mercadolivre shadow-md' : 'bg-white border-gray-300'}
+            ${isSelected('kit') ? 'bg-nubank border-nubank shadow-md' : 'bg-white border-gray-300'}
           `}>
              {isSelected('kit') && <Check className="w-4 h-4 text-white" />}
           </div>
@@ -86,7 +86,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
           <div className="ml-5 flex flex-col justify-center flex-1">
-            <span className="text-xs font-black text-mercadolivre uppercase tracking-[0.2em] mb-1">Combo Especial</span>
+            <span className="text-xs font-black text-nubank uppercase tracking-[0.2em] mb-1">Combo Especial</span>
             <span className="text-sm md:text-base font-bold text-gray-800 leading-tight">
               1 enxame de abelha urucu cinzenta com frete grátis para todo o brasil com entrega segura.
             </span>
