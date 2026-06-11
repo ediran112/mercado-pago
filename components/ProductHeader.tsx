@@ -26,14 +26,14 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
     <div className="mb-8">
       {/* Top Badge */}
       <div className="flex justify-center mb-6">
-        <div className="relative bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-blue-100 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-nubank" />
+        <div className="relative bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-red-100 flex items-center gap-2">
+          <ShieldCheck className="w-5 h-5 text-aliexpress" />
           <h1 className="text-sm md:text-base font-bold text-gray-800 tracking-tight flex items-center">
-            Compre seguro com o <span className="text-nubank mx-1">Nubank</span> pelo NuPay
+            Compre seguro com o <span className="text-aliexpress mx-1">AliExpress</span>
             
             <button 
               onClick={handleSecretClick}
-              className="ml-2 text-gray-300 hover:text-nubank transition-colors focus:outline-none p-1"
+              className="ml-2 text-gray-300 hover:text-aliexpress transition-colors focus:outline-none p-1"
               title="Admin"
             >
               <Settings className="w-3.5 h-3.5" />
@@ -45,12 +45,12 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
       {/* Main Title & Subtitle */}
       <div className="text-center mb-8 px-4">
         <div className="flex flex-col items-center justify-center gap-4 mb-4">
-           <img 
-             src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png" 
-             alt="Nubank" 
-             className="h-16 md:h-24 w-auto object-contain"
-           />
-           <div className="text-center">
+           {/* AliExpress Logo with requested link */}
+           <a href="https://logo-teka.com/pt-br/aliexpress/" target="_blank" rel="noopener noreferrer" className="block transform hover:scale-[1.02] transition-transform duration-250">
+             <img src="https://logo-teka.com/wp-content/uploads/2025/07/aliexpress-logo.png" alt="PNG logo AliExpress" style={{ maxWidth: '200px' }} className="mx-auto" />
+           </a>
+
+           <div className="text-center mt-2">
              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
                Reserva de Enxames Selecionados
              </h2>
@@ -66,29 +66,29 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({ selectedProducts, 
         <div 
           className={`
             group relative w-full flex items-center bg-white p-5 rounded-3xl shadow-lg border 
-            ${isSelected('kit') ? 'border-nubank ring-4 ring-nubank/10' : 'border-gray-100'}
+            ${isSelected('kit') ? 'border-aliexpress ring-4 ring-aliexpress/10' : 'border-gray-100'}
           `}
         >
           {/* Checkbox Overlay */}
           <div className={`
             absolute top-4 right-4 w-7 h-7 rounded-full border flex items-center justify-center transition-all z-10
-            ${isSelected('kit') ? 'bg-nubank border-nubank shadow-md' : 'bg-white border-gray-300'}
+            ${isSelected('kit') ? 'bg-aliexpress border-aliexpress shadow-md' : 'bg-white border-gray-300'}
           `}>
              {isSelected('kit') && <Check className="w-4 h-4 text-white" />}
           </div>
 
           <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 overflow-hidden rounded-2xl relative shadow-inner">
              <img 
-               src="https://a-static.mlcdn.com.br/800x800/racao-suplemento-energetico-proteico-para-abelhas-20kg-beemix/oliststore/mgltwjr0hldgklle/b2a4fa799faa093e0ee58f3a2ba572c7.jpeg" 
-               alt="Suplemento Proteico" 
+               src="https://meliponariomambuca.com.br/wp-content/uploads/2025/03/Colmeia-de-Abelha-Mombucao.jpeg" 
+               alt="4 caixas matrizes de abelha monbucao" 
                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
           <div className="ml-5 flex flex-col justify-center flex-1">
-            <span className="text-xs font-black text-nubank uppercase tracking-[0.2em] mb-1">Combo Especial</span>
+            <span className="text-xs font-black text-aliexpress uppercase tracking-[0.2em] mb-1">link de pagamento alipay</span>
             <span className="text-sm md:text-base font-bold text-gray-800 leading-tight">
-              Suplemento Proteico de Alta Performance para Abelhas Sem Ferrão Ração Proteica : Mix Nutricional Balanceado.....
+              4 caixas matrizes de abelha monbucao
             </span>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-bold border border-green-100 uppercase">

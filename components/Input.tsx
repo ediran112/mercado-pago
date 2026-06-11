@@ -16,7 +16,7 @@ export const Input: React.FC<InputProps> = ({ label, error, className = '', ...p
           w-full px-4 py-3 rounded-xl border bg-white
           text-gray-900 placeholder-gray-400
           transition-all duration-200 ease-in-out
-          focus:outline-none focus:ring-2 focus:ring-nubank/20 focus:border-nubank
+          focus:outline-none focus:ring-2 focus:ring-aliexpress/20 focus:border-aliexpress
           ${error ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 hover:border-gray-300'}
           ${className}
         `}
